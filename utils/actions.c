@@ -6,7 +6,7 @@
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:45:41 by jromann           #+#    #+#             */
-/*   Updated: 2025/10/16 16:55:10 by jromann          ###   ########.fr       */
+/*   Updated: 2025/11/05 11:29:32 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	nap(t_philosopher *philo)
 void	think(t_philosopher *philo)
 {
 	printaction(" is thinking\n", philo);
+	// optimised_usleep(philo->data->time_to_think, philo);
 	if (usleep(0) == -1)
 		philo->data->function_fail = true;
 }

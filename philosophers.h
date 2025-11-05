@@ -6,7 +6,7 @@
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 11:08:16 by jromann           #+#    #+#             */
-/*   Updated: 2025/10/16 17:09:00 by jromann          ###   ########.fr       */
+/*   Updated: 2025/11/05 11:18:13 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 	atomic_size_t	time_to_die;
 	atomic_size_t	time_to_eat;
 	atomic_size_t	time_to_sleep;
+	atomic_size_t	time_to_think;
 	atomic_size_t	required_meals;
 	atomic_size_t	philos_done;
 	atomic_size_t	start_time;

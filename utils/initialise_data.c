@@ -6,7 +6,7 @@
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 13:52:18 by jromann           #+#    #+#             */
-/*   Updated: 2025/10/16 17:18:58 by jromann          ###   ########.fr       */
+/*   Updated: 2025/11/05 11:25:23 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,16 @@ int	invalid_num(t_data *data)
 	return (0);
 }
 
+void	cal_time_to_think(t_data *data)
+{
+	size_t	new_time_to_think;
+
+	new_time_to_think = 1;
+	if (data->time_to_eat > data->time_to_sleep)
+		new_time_to_think = data->time_to_eat - data->time_to_sleep;
+	data->time_to_think = new_time_to_think;
+}
+
 static int	initialise_args(t_data *data, int argc, char **argv)
 {
 	bool	overflow;
@@ -73,6 +83,7 @@ static int	initialise_args(t_data *data, int argc, char **argv)
 		data->required_meals = -1;
 	if (overflow == true || invalid_num(data))
 		return (write(2, "INVALID NUMBER\n", 15), 1);
+	cal_time_to_think(data);
 	data->status = ACTIVE;
 	data->threads_ready = false;
 	data->start_time = 0;
