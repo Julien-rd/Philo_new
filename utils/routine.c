@@ -6,7 +6,7 @@
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:39:56 by jromann           #+#    #+#             */
-/*   Updated: 2025/11/05 12:05:05 by jromann          ###   ########.fr       */
+/*   Updated: 2025/11/05 13:22:05 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 void	wait_for_threads(t_philosopher *philo)
 {
-	while (philo->data->threads_ready == false)
+	while (philo->data->threads_ready == false && simulation_active(philo))
 	{
 		if (usleep(10) == -1)
-		{
 			philo->data->function_fail = true;
-			break ;
-		}
 	}
 }
 
@@ -42,7 +39,7 @@ void	*one_philo(void *ptr)
 
 void	routine_for_even(t_philosopher *philo)
 {
-	while (philo->data->status == ACTIVE && philo->data->function_fail == false)
+	while (simulation_active(philo))
 	{
 		nap(philo);
 		if (philo->data->status == INACTIVE
@@ -64,7 +61,7 @@ void	*routine(void *ptr)
 	wait_for_threads(philo);
 	if (philo->data->philo_amount % 2 == 0 && philo->id % 2 == 0)
 		routine_for_even(philo);
-	while (philo->data->status == ACTIVE && philo->data->function_fail == false)
+	while (simulation_active(philo))
 	{
 		eat(philo);
 		if (philo->data->status == INACTIVE

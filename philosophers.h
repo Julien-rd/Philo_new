@@ -6,7 +6,7 @@
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 11:08:16 by jromann           #+#    #+#             */
-/*   Updated: 2025/11/05 11:18:13 by jromann          ###   ########.fr       */
+/*   Updated: 2025/11/05 13:21:43 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ typedef struct s_philosopher
 int					initialise_data(t_data *data, int argc, char **argv);
 int					start_simulation(t_data *data);
 
+// initialise_data_helpers
+
+int					initialise_args(t_data *data, int argc, char **argv);
+void				cal_time_to_think(t_data *data);
+int					invalid_num(t_data *data);
+int					initialise_forks(t_data *data);
+int					valid_input(int argc, char **argv);
+
 // simulation_helpers
 int					cleanup(t_philosopher *philo, t_data *data, int flag,
 						char *msg);
@@ -78,6 +86,7 @@ void				pickup_fork(t_philosopher *philo);
 int					ready2eat(t_philosopher *philo);
 int					status_check(t_philosopher *philo);
 int					dinner_done(t_philosopher *philo);
+int					simulation_active(t_philosopher *philo);
 
 // actions
 void				nap(t_philosopher *philo);
@@ -88,11 +97,12 @@ void				printaction(char *str, t_philosopher *philo);
 // protected functions
 int					protected_pthread_create(t_philosopher *philo, int pos,
 						void *function);
+void				safe_usleep(size_t time, t_philosopher *philo);
+int					safe_write(int fd, char *str, int size, t_data *data);
 
 // helper
 void				print_num(int n, t_data *data);
 size_t				ft_strlen(char *str);
 int					ft_atoi(const char *nptr, bool *overflow);
-int					safe_write(int fd, char *str, int size, t_data *data);
 
 #endif

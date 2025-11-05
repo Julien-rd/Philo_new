@@ -6,7 +6,7 @@
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:16:54 by jromann           #+#    #+#             */
-/*   Updated: 2025/11/05 12:02:48 by jromann          ###   ########.fr       */
+/*   Updated: 2025/11/05 13:22:33 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	initialise_philos(t_data *data, t_philosopher **philo)
 
 static int	monitoring_philos(t_data *data, t_philosopher **philo)
 {
-	if (data->status == ACTIVE && data->function_fail == false)
+	if (simulation_active(*philo))
 	{
 		if (data->philo_amount == 1)
 			return (0);
@@ -59,8 +59,8 @@ static int	monitoring_philos(t_data *data, t_philosopher **philo)
 		{
 			if (status_check(*philo) == 1)
 				return (data->status = INACTIVE, 1);
-			// if (usleep(0) == -1)
-			// 	return (data->function_fail = true, data->status = INACTIVE, 1);
+			if (usleep(0) == -1)
+				return (data->function_fail = true, data->status = INACTIVE, 1);
 		}
 	}
 	return (0);

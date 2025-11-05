@@ -6,22 +6,17 @@
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 08:36:17 by jromann           #+#    #+#             */
-/*   Updated: 2025/11/05 11:33:47 by jromann          ###   ########.fr       */
+/*   Updated: 2025/11/05 13:30:40 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	safe_write(int fd, char *str, int size, t_data *data)
+int	simulation_active(t_philosopher *philo)
 {
-	if (data->function_fail == true)
-		return (-1);
-	if (write(fd, str, size) == -1)
-	{
-		data->function_fail = true;
-		return (-1);
-	}
-	return (0);
+	if (philo->data->status == INACTIVE || philo->data->function_fail == true)
+		return (0);
+	return (1);
 }
 
 static void	alive_check(t_philosopher *philo)
@@ -50,8 +45,8 @@ int	dinner_done(t_philosopher *philo)
 {
 	if (philo->data->philos_done == philo->data->philo_amount)
 	{
-		philo->data->status = 0;
 		safe_write(1, "dinner done!\n", 13, philo->data);
+		philo->data->status = 0;
 		return (1);
 	}
 	return (0);
