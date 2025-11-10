@@ -6,7 +6,7 @@
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:45:41 by jromann           #+#    #+#             */
-/*   Updated: 2025/11/05 13:26:28 by jromann          ###   ########.fr       */
+/*   Updated: 2025/11/10 14:05:43 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ void	nap(t_philosopher *philo)
 
 void	think(t_philosopher *philo)
 {
+	atomic_size_t	think_time;
+
 	printaction(" is thinking\n", philo);
-	optimised_usleep(philo->data->time_to_think, philo);
+	think_time = (philo->data->time_to_die - (gettime(philo)
+				- philo->last_eaten) - philo->data->time_to_eat) / 2;
+	if (think_time < 0 || philo->data->function_fail == true)
+		think_time = 0;
+	if (think_time > 600)
+		think_time = 200;
+	// think_time = philo->data->time_to_think * (1 - (gettime(philo)
+	// 			- philo->last_eaten) / philo->data->time_to_die);
+	optimised_usleep(think_time, philo);
 }

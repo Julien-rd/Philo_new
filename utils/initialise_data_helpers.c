@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jromann <jromann@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 13:52:18 by jromann           #+#    #+#             */
-/*   Updated: 2025/11/05 13:06:28 by jromann          ###   ########.fr       */
+/*   Created: 2025/11/05 15:47:40 by jromann           #+#    #+#             */
+/*   Updated: 2025/11/10 13:59:04 by jromann          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,10 @@ int	invalid_num(t_data *data)
 
 void	cal_time_to_think(t_data *data)
 {
-	size_t	new_time_to_think;
-
-	new_time_to_think = 1;
-	if (data->time_to_eat > data->time_to_sleep)
-		new_time_to_think = data->time_to_eat - data->time_to_sleep;
-	data->time_to_think = new_time_to_think;
+	if (data->time_to_eat < data->time_to_sleep)
+		data->time_to_think = data->time_to_eat / 2;
+	else
+		data->time_to_think = 0;
 }
 
 int	initialise_args(t_data *data, int argc, char **argv)
@@ -74,6 +72,8 @@ int	initialise_args(t_data *data, int argc, char **argv)
 
 	overflow = false;
 	data->philo_amount = ft_atoi(argv[1], &overflow);
+	if (data->philo_amount > 200)
+		return (1);
 	data->time_to_die = ft_atoi(argv[2], &overflow);
 	data->time_to_eat = ft_atoi(argv[3], &overflow);
 	data->time_to_sleep = ft_atoi(argv[4], &overflow);

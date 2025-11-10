@@ -4,7 +4,7 @@ CC = cc
 INC_DIR = .
 CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -MMD -g
 OBJ_DIR = obj
-VPATH = utils
+VPATH = utils utils/core utils/helpers
 
 SRC = actions.c status_check.c cleanup.c gettime.c helper.c initialise_data.c start_simulation.c \
       pickup_fork.c protected_functions.c routine.c philo.c initialise_data_helpers.c
